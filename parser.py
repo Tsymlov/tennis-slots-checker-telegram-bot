@@ -121,35 +121,6 @@ class TennisSlotsParser:
         logger.info(f"Всего найдено {len(all_available_slots)} доступных слотов на неделю")
         return all_available_slots
 
-    def print_available_slots(self, start_date: str):
-        """
-        Выводит доступные слоты на неделю в удобном формате.
-        
-        Args:
-            start_date: Дата начала недели в формате YYYY-MM-DD
-        """
-        slots = self.get_week_available_slots(start_date)
-        
-        if not slots:
-            print("Доступных слотов не найдено")
-            return
-        
-        print(f"\nДоступные слоты на неделю с {start_date}:")
-        print("=" * 50)
-        
-        current_date = None
-        for slot in slots:
-            slot_date = slot.strftime('%Y-%m-%d')
-            slot_time = slot.strftime('%H:%M')
-            
-            if current_date != slot_date:
-                if current_date is not None:
-                    print()  # Пустая строка между датами
-                print(f"📅 {slot_date}:")
-                current_date = slot_date
-            
-            print(f"  ⏰ {slot_time}")
-
 
 def main():
     """
