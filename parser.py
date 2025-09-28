@@ -3,6 +3,7 @@ import json
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 import logging
+import os
 from dotenv import load_dotenv
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -22,7 +23,7 @@ class TennisSlotsParser:
             'Accept-Language': 'ru,en;q=0.9',
             'Cache-Control': 'max-age=0',
             'Connection': 'keep-alive',
-            'Cookie': 'csrftoken=k02j4ggNvdjUKOwPf6M48HGaKW1cDTsR; sessionid={SESSION_ID}',
+            'Cookie': f'csrftoken=k02j4ggNvdjUKOwPf6M48HGaKW1cDTsR; sessionid={SESSION_ID}',
             'Host': 'kort40.online',
             'Sec-Fetch-Dest': 'document',
             'Sec-Fetch-Mode': 'navigate',
