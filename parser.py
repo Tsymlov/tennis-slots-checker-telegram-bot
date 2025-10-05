@@ -38,7 +38,7 @@ class TennisSlotsParser:
             'sec-gpc': '1'
         }
 
-    def get_week_dates(self, start_date: str) -> List[str]:
+    def get_dates_for_period(self, start_date: str, days: int = 7) -> List[str]:
         """
         Получает список дат на неделю, начиная с указанной даты.
         
@@ -51,7 +51,7 @@ class TennisSlotsParser:
         try:
             start = datetime.strptime(start_date, '%Y-%m-%d')
             dates = []
-            for i in range(7):
+            for i in range(days):
                 date = start + timedelta(days=i)
                 dates.append(date.strftime('%Y-%m-%d'))
             return dates
@@ -91,17 +91,18 @@ class TennisSlotsParser:
             logger.error(f"Неожиданная ошибка для даты {date}: {e}")
             return []
 
-    def get_week_available_slots(self, start_date: str) -> List[datetime]:
+    def get_available_slots_for_period(self, start_date: str, days: int = 7) -> List[datetime]:
         """
-        Получает все доступные слоты на неделю.
-        
+        Получает все доступные слоты на указанный период.
+
         Args:
-            start_date: Дата начала недели в формате YYYY-MM-DD
-            
+            start_date: Дата начала периода в формате YYYY-MM-DD
+            days: Количество дней для проверки (по умолчанию 7)
+
         Returns:
             Список datetime объектов с доступными слотами
         """
-        dates = self.get_week_dates(start_date)
+        dates = self.get_dates_for_period(start_date, days)
         if not dates:
             logger.error("Не удалось получить список дат")
             return []
@@ -119,7 +120,7 @@ class TennisSlotsParser:
         # Сортируем слоты по времени
         all_available_slots.sort()
         
-        logger.info(f"Всего найдено {len(all_available_slots)} доступных слотов на неделю")
+        logger.info(f"Всего найдено {len(all_available_slots)} доступных слотов на {days} дней")
         return all_available_slots
 
 
@@ -135,12 +136,18 @@ def main():
     print("🎾 Парсер свободных слотов теннисного корта")
     print("=" * 50)
     
-    # Получаем и выводим доступные слоты
-    parser.print_available_slots(start_date)
-    
-    # Также можно получить список datetime объектов для дальнейшей обработки
-    slots = parser.get_week_available_slots(start_date)
-    print(f"\nВсего найдено слотов: {len(slots)}")
+    # Тестируем разные периоды
+    print("\n📅 Слоты на неделю:")
+    week_slots = parser.get_available_slots_for_period(start_date, days=7)
+    print(f"Найдено: {len(week_slots)} слотов")
+
+    print("\n📅 Слоты на две недели:")
+    two_weeks_slots = parser.get_available_slots_for_period(start_date, days=14)
+    print(f"Найдено: {len(two_weeks_slots)} слотов")
+
+    print("\n📅 Слоты на месяц:")
+    month_slots = parser.get_available_slots_for_period(start_date, days=30)
+    print(f"Найдено: {len(month_slots)} слотов")
 
 
 if __name__ == "__main__":

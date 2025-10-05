@@ -79,7 +79,7 @@ class TennisSlotsBot:
     def get_current_week_slots(self) -> List[datetime]:
         """Получает слоты на текущую неделю."""
         today = datetime.now().strftime('%Y-%m-%d')
-        return self.parser.get_week_available_slots(today)
+        return self.parser.get_available_slots_for_period(today, days=7)
 
     def find_new_slots(self, current_slots: List[datetime]) -> List[datetime]:
         """Находит новые слоты по сравнению с последними сохраненными."""
