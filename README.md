@@ -24,7 +24,7 @@
 **Локальное тестирование:**
 ```bash
 # Для тестирования локально (разовый запуск)
-python bot.py
+python3 bot.py
 ```
 
 ### 💬 Interactive Bot (`interactive_bot.py`)
@@ -49,7 +49,7 @@ python bot.py
 **Использование:**
 ```bash
 # Запуск локально или на сервере
-python interactive_bot.py
+python3 interactive_bot.py
 ```
 
 ## 🚀 Общие возможности
